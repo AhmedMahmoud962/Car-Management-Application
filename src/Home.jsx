@@ -11,7 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteCar } from '../CarReducer'
+import { deleteCar } from './CarReducer'
 
 const Home = () => {
   const cars = useSelector((state) => state.cars)
@@ -95,7 +95,6 @@ const Home = () => {
         <Table sx={{ minWidth: 800 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Model</TableCell>
               <TableCell style={{ fontWeight: 'bold' }} align="right">
                 Price
@@ -128,7 +127,6 @@ const Home = () => {
                   key={car.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell>{car.id}</TableCell>
                   <TableCell>{car.carModel}</TableCell>
                   <TableCell align="right">{car.carPrice}</TableCell>
                   <TableCell align="right">{car.carColor}</TableCell>

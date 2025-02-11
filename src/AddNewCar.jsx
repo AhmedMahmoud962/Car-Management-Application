@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 // MUI
 import {
   Container,
@@ -10,63 +10,42 @@ import {
   FormControl,
   Typography,
 } from '@mui/material'
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { addCar } from './CarReducer' // Ensure this import is correct
 // react router
-import { useParams, useNavigate } from 'react-router-dom'
-// redux
-import { useSelector, useDispatch } from 'react-redux'
-import { updateCar } from '../CarReducer'
+import { useNavigate } from 'react-router-dom'
+const AddNewCar = () => {
+  // State for form inputs
+  const [carModel, setCarModel] = useState('')
+  const [carPrice, setCarPrice] = useState('')
+  const [carColor, setCarColor] = useState('')
+  const [carDate, setCarDate] = useState('')
 
-const EditCar = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  // Redux state and dispatch
   const cars = useSelector((state) => state.cars)
-  const existingCar = cars.find((car) => car.id === parseInt(id))
-
-  const [updateModel, setUpdateModel] = useState('')
-  const [updatePrice, setUpdatePrice] = useState('')
-  const [updateColor, setUpdateColor] = useState('')
-  const [updateDate, setUpdateDate] = useState('')
-
-  useEffect(() => {
-    if (existingCar) {
-      setUpdateModel(existingCar.carModel || '')
-      setUpdatePrice(existingCar.carPrice || '')
-      setUpdateColor(existingCar.carColor || '')
-      setUpdateDate(existingCar.carDate || '')
-    }
-  }, [existingCar])
-
+  const dispatch = useDispatch()
+  // React Router navigation
+  const navigate = useNavigate()
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    const updatedCar = {
-      id: parseInt(id),
-      carModel: updateModel,
-      carPrice: updatePrice,
-      carColor: updateColor,
-      carDate: updateDate,
-    }
-
-    dispatch(updateCar(updatedCar))
-    navigate('/')
-  }
-
-  if (!existingCar) {
-    return (
-      <Container
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-        }}
-      >
-        <Typography variant="h4" align="center">
-          Car not found!
-        </Typography>
-      </Container>
+    // Dispatch the addCar action
+    dispatch(
+      addCar({
+        id: cars.length + 1,
+        carModel,
+        carPrice,
+        carColor,
+        carDate,
+      }),
     )
+    navigate('/')
+    // reset inputs
+    setCarModel('')
+    setCarPrice('')
+    setCarColor('')
+    setCarDate('')
   }
 
   return (
@@ -90,32 +69,37 @@ const EditCar = () => {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom>
-          Edit Car Details
+          Add New Car
         </Typography>
         <form id="carForm" onSubmit={handleSubmit}>
+          {/* Car Model Input */}
           <TextField
             label="Car Model"
             margin="normal"
             fullWidth
             required
-            value={updateModel}
-            onChange={(e) => setUpdateModel(e.target.value)}
+            value={carModel}
+            onChange={(e) => setCarModel(e.target.value)}
           />
+
+          {/* Price Input */}
           <TextField
             label="Price"
             type="text"
             margin="normal"
             fullWidth
             required
-            value={updatePrice}
-            onChange={(e) => setUpdatePrice(e.target.value)}
+            value={carPrice}
+            onChange={(e) => setCarPrice(e.target.value)}
           />
+
+          {/* Color Dropdown */}
           <FormControl margin="normal" fullWidth required>
             <InputLabel>Color</InputLabel>
             <Select
               label="Color"
-              value={updateColor}
-              onChange={(e) => setUpdateColor(e.target.value)}
+              value={carColor}
+              onChange={(e) => setCarColor(e.target.value)}
             >
               <MenuItem value="Red">Red</MenuItem>
               <MenuItem value="Blue">Blue</MenuItem>
@@ -124,16 +108,20 @@ const EditCar = () => {
               <MenuItem value="White">White</MenuItem>
             </Select>
           </FormControl>
+
+          {/* Date Input */}
           <TextField
-            label="Manufacture Date"
+            label=" Date"
             type="date"
             fullWidth
             required
             InputLabelProps={{ shrink: true }}
             margin="normal"
-            value={updateDate}
-            onChange={(e) => setUpdateDate(e.target.value)}
+            value={carDate}
+            onChange={(e) => setCarDate(e.target.value)}
           />
+
+          {/* Submit Button */}
           <Button
             type="submit"
             variant="contained"
@@ -146,7 +134,7 @@ const EditCar = () => {
               justifyContent: 'center',
             }}
           >
-            Update
+            Add Car
           </Button>
         </form>
       </div>
@@ -154,4 +142,4 @@ const EditCar = () => {
   )
 }
 
-export default EditCar
+export default AddNewCar
