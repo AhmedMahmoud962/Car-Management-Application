@@ -8,7 +8,7 @@ import ViewCarDetails from './ViewCarDetails.jsx'
 import { Routes, Route } from 'react-router-dom'
 // toast notifications
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+// import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <>
