@@ -4,9 +4,9 @@ import { Container, Paper, Typography, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const ViewCarDetails = () => {
-  const { id } = useParams() 
-  const cars = useSelector((state) => state.cars) 
-  const car = cars.find((car) => car.id === parseInt(id)) 
+  const { id } = useParams()
+  const cars = useSelector((state) => state.cars)
+  const car = cars.find((car) => car.id === parseInt(id))
 
   // No car found
   if (!car) {
@@ -64,7 +64,7 @@ const ViewCarDetails = () => {
               Price:
             </Typography>
             <Typography variant="body1" sx={{ color: '#333' }}>
-              ${car.carPrice}
+              {car.carPrice}
             </Typography>
           </Box>
 
@@ -86,7 +86,7 @@ const ViewCarDetails = () => {
             </Typography>
           </Box>
 
-          {/* Manufacture Date */}
+          {/*  Date */}
           <Box
             sx={{
               display: 'flex',

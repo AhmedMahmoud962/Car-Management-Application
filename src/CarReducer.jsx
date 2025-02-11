@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 const loadStateFromLocalStorage = () => {
   try {
@@ -19,12 +20,11 @@ const carSlice = createSlice({
   name: 'car',
   initialState,
   reducers: {
-    // add car
     addCar: (state, action) => {
       state.push(action.payload)
       saveStateToLocalStorage(state)
+      toast.success('Car Added Successfully')
     },
-    // update car
     updateCar: (state, action) => {
       const { id, carModel, carPrice, carColor, carDate } = action.payload
       const carToUpdate = state.find((car) => car.id === id)
@@ -35,19 +35,18 @@ const carSlice = createSlice({
         carToUpdate.carDate = carDate
       }
       saveStateToLocalStorage(state)
+      toast.info('Car Updated Successfully')
     },
-
-    // delete car
     deleteCar: (state, action) => {
       const { id } = action.payload
       const newState = state.filter((car) => car.id !== id)
       saveStateToLocalStorage(newState)
+      toast.error('Car Deleted Successfully')
       return newState
     },
   },
 })
 
-// save state to local storage
 const saveStateToLocalStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state)
@@ -57,5 +56,5 @@ const saveStateToLocalStorage = (state) => {
   }
 }
 
-export const { addCar, updateCar, deleteCar, view } = carSlice.actions
+export const { addCar, updateCar, deleteCar } = carSlice.actions
 export default carSlice.reducer

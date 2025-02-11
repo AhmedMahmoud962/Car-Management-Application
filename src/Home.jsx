@@ -22,13 +22,17 @@ const Home = () => {
   }
 
   return (
-    <Container>
+    <Container
+      style={{
+        margin: '70px auto',
+      }}
+    >
       {/* Heading */}
       <div
         style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-        Car Management Application using React
+          Car Management Application
         </Typography>
       </div>
 
@@ -47,58 +51,55 @@ const Home = () => {
         </Link>
       </div>
 
-      {/* Table or No Data Message */}
-      {cars.length === 0 ? (
-        <Typography
-          variant="h6"
-          align="center"
-          style={{ marginTop: '20px', color: '#555' }}
-        >
-          No data to display
-        </Typography>
-      ) : (
-        <TableContainer
-          style={{
-            overflowX: 'auto',
-            backgroundColor: '#fff',
-            padding: '20px',
-            boxSizing: 'border-box',
-            borderRadius: '10px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-          }}
-        >
-          <Table sx={{ minWidth: 600 }} aria-label="simple table">
-            <TableHead>
+      {/* Table Container */}
+      <TableContainer
+        style={{
+          overflowX: 'auto',
+          backgroundColor: '#fff',
+          padding: '20px',
+          boxSizing: 'border-box',
+          borderRadius: '10px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+        }}
+      >
+        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Model</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }} align="right">
+                Price
+              </TableCell>
+              <TableCell style={{ fontWeight: 'bold' }} align="right">
+                Color
+              </TableCell>
+              <TableCell style={{ fontWeight: 'bold' }} align="right">
+                Date
+              </TableCell>
+              <TableCell style={{ fontWeight: 'bold' }} align="right">
+                Action
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cars.length === 0 ? (
               <TableRow>
-                <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }}>Model</TableCell>
-                <TableCell style={{ fontWeight: 'bold' }} align="right">
-                  Price
-                </TableCell>
-                <TableCell style={{ fontWeight: 'bold' }} align="right">
-                  Color
-                </TableCell>
-                <TableCell style={{ fontWeight: 'bold' }} align="right">
-                  Date
-                </TableCell>
-                <TableCell style={{ fontWeight: 'bold' }} align="right">
-                  Action
+                <TableCell
+                  colSpan={6}
+                  align="center"
+                  style={{ fontSize: '16px', color: '#777' }}
+                >
+                  No cars added
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* body Data  */}
-              {cars.map((car) => (
+            ) : (
+              cars.map((car) => (
                 <TableRow
                   key={car.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    {car.id}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {car.carModel}
-                  </TableCell>
+                  <TableCell>{car.id}</TableCell>
+                  <TableCell>{car.carModel}</TableCell>
                   <TableCell align="right">{car.carPrice}</TableCell>
                   <TableCell align="right">{car.carColor}</TableCell>
                   <TableCell align="right">{car.carDate}</TableCell>
@@ -110,8 +111,10 @@ const Home = () => {
                         gap: '10px',
                       }}
                     >
-                      {/* View Button */}
-                      <Link to={`/view/${car.id}`}>
+                      <Link
+                        to={`/view/${car.id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
                         <Button
                           variant="contained"
                           color="info"
@@ -125,9 +128,10 @@ const Home = () => {
                           <VisibilityIcon fontSize="small" /> View
                         </Button>
                       </Link>
-
-                      {/* Edit Button */}
-                      <Link to={`/edit/${car.id}`}>
+                      <Link
+                        to={`/edit/${car.id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
                         <Button
                           variant="contained"
                           color="secondary"
@@ -141,8 +145,6 @@ const Home = () => {
                           <EditIcon fontSize="small" /> Edit
                         </Button>
                       </Link>
-
-                      {/* Delete Button */}
                       <Button
                         variant="contained"
                         color="error"
@@ -159,11 +161,11 @@ const Home = () => {
                     </div>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   )
 }
