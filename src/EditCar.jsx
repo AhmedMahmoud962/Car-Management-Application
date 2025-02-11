@@ -103,7 +103,7 @@ const EditCar = () => {
           />
           <TextField
             label="Price"
-            type="number"
+            type="text"
             margin="normal"
             fullWidth
             required
@@ -146,7 +146,7 @@ const EditCar = () => {
               justifyContent: 'center',
             }}
           >
-            Save
+            Update
           </Button>
         </form>
       </div>

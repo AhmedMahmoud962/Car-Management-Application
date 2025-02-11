@@ -1,10 +1,11 @@
+import React, { useState } from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { Container, Button, Typography } from '@mui/material'
+import { Container, Button, Typography, TextField } from '@mui/material'
 import { Link } from 'react-router-dom'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -16,10 +17,18 @@ const Home = () => {
   const cars = useSelector((state) => state.cars)
   const dispatch = useDispatch()
 
-  // handle delete
+  // State for search query
+  const [filter, setFilter] = useState('')
+
+  // Handle delete
   const handleDeletedClick = (id) => {
     dispatch(deleteCar({ id }))
   }
+
+  // Filter cars based on search query
+  const filteredCars = cars.filter((car) =>
+    car.carModel.toLowerCase().includes(filter.toLowerCase()),
+  )
 
   return (
     <Container
@@ -36,14 +45,27 @@ const Home = () => {
         </Typography>
       </div>
 
-      {/* Add New Car Button */}
+      {/* Add New Car  */}
       <div
         style={{
           display: 'flex',
-          justifyContent: 'flex-end',
-          marginBottom: '20px',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          marginBottom: '10px',
         }}
       >
+        {/* Search  */}
+        <TextField
+          label="Search by Model"
+          variant="outlined"
+          size="small"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          style={{ width: '250px', marginBottom: '5px' }}
+        />
+
+        {/* Add New Car Button */}
         <Link to="/add">
           <Button variant="contained" color="primary">
             Add New Car
@@ -51,6 +73,14 @@ const Home = () => {
         </Link>
       </div>
 
+      {/* count dynamic */}
+      <Typography
+        style={{ padding: '10px 0', fontSize: '20px', fontWeight: 'bold' }}
+        variant="h6"
+        color="textSecondary"
+      >
+        Count Of Cars : {filteredCars.length} cars
+      </Typography>
       {/* Table Container */}
       <TableContainer
         style={{
@@ -62,7 +92,7 @@ const Home = () => {
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
         }}
       >
-        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+        <Table sx={{ minWidth: 800 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
@@ -82,18 +112,18 @@ const Home = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cars.length === 0 ? (
+            {filteredCars.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={6}
                   align="center"
                   style={{ fontSize: '16px', color: '#777' }}
                 >
-                  No cars added
+                  No cars found
                 </TableCell>
               </TableRow>
             ) : (
-              cars.map((car) => (
+              filteredCars.map((car) => (
                 <TableRow
                   key={car.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

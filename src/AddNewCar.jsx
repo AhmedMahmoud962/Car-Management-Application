@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 // MUI
 import {
   Container,
@@ -19,7 +19,7 @@ const AddNewCar = () => {
   // State for form inputs
   const [carModel, setCarModel] = useState('')
   const [carPrice, setCarPrice] = useState('')
-  const [carColor, setCarColor] = useState('') 
+  const [carColor, setCarColor] = useState('')
   const [carDate, setCarDate] = useState('')
 
   // Redux state and dispatch
@@ -85,7 +85,7 @@ const AddNewCar = () => {
           {/* Price Input */}
           <TextField
             label="Price"
-            type="number"
+            type="text"
             margin="normal"
             fullWidth
             required
