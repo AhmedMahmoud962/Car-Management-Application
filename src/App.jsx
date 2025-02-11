@@ -1,9 +1,9 @@
 import './App.css'
 // components
-import Home from './Home.jsx'
-import AddNewCar from './AddNewCar.jsx'
-import EditCar from './EditCar.jsx'
-import ViewCarDetails from './ViewCarDetails.jsx'
+import Home from './pages/Home.jsx'
+import AddNewCar from './pages/AddNewCar.jsx'
+import EditCar from './pages/EditCar.jsx'
+import ViewCarDetails from './pages/ViewCarDetails.jsx'
 // routes
 import { Routes, Route } from 'react-router-dom'
 // toast notifications
