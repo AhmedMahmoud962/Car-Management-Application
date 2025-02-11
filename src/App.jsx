@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 // toast notifications
 import { ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
+import NoCarsFound from './NOData'
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/add" element={<AddNewCar />} />
         <Route path="/edit/:id" element={<EditCar />} />
         <Route path="/view/:id" element={<ViewCarDetails />} />
+        <Route path="*" element={<NoCarsFound/>} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
     </>

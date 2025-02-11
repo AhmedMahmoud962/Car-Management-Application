@@ -139,6 +139,7 @@ const Home = () => {
                         gap: '10px',
                       }}
                     >
+                      {/* View */}
                       <Link
                         to={`/view/${car.id}`}
                         style={{ textDecoration: 'none' }}
@@ -156,6 +157,7 @@ const Home = () => {
                           <VisibilityIcon fontSize="small" /> View
                         </Button>
                       </Link>
+                      {/* Edit */}
                       <Link
                         to={`/edit/${car.id}`}
                         style={{ textDecoration: 'none' }}
@@ -173,6 +175,7 @@ const Home = () => {
                           <EditIcon fontSize="small" /> Edit
                         </Button>
                       </Link>
+                      {/* Delete */}
                       <Button
                         variant="contained"
                         color="error"
